@@ -5,7 +5,15 @@
 > OpenSpec defines how software is specified.  
 > OpenReliability defines how software is safely changed, operated, and improved.
 
-OpenReliability (`rel`) is an open standard and reference toolchain for making reliability engineering workflows machine-readable, evidence-driven, and agent-executable.
+OpenReliability is an open standard for making reliability engineering workflows machine-readable, evidence-driven, and agent-executable.
+
+## Naming
+
+- **OpenReliability** — the full project and standard name
+- **ORel** — the short name for the OpenReliability standard and project
+- **`rel`** — the reference CLI implementation of ORel
+
+ORel is the standard. `rel` is one implementation of that standard.
 
 The project focuses on the common language of reliability work across **Change**, **Run**, and **Learn**—not on owning the agents, observability stack, CI/CD engine, or execution runtime that perform the work.
 
