@@ -13,6 +13,14 @@ OpenReliability defines how software is safely changed, operated, and improved.
 
 OpenReliability exists to make reliability engineering work portable, machine-readable, evidence-driven, and executable by humans or agents.
 
+### Naming
+
+- **OpenReliability** is the full project and standard name.
+- **ORel** is the preferred abbreviation for the standard and project.
+- **`rel`** is the reference CLI implementation.
+
+The distinction is deliberate: **ORel defines the standard; `rel` demonstrates and implements it.**
+
 The project should standardize **the language and lifecycle of reliability work**, while allowing the systems that execute that work to remain replaceable.
 
 ---
