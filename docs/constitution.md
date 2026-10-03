@@ -17,6 +17,142 @@ The project should standardize **the language and lifecycle of reliability work*
 
 ---
 
+## What OpenReliability standardizes
+
+OpenReliability (ORel) defines a **common language for Reliability Engineering** at several layers.
+
+### 1. Vocabulary
+
+The smallest shared concepts used across reliability work:
+
+- Case
+- Finding
+- Hypothesis
+- Action
+- Evidence
+- Decision
+- Learning
+
+These concepts should remain stable enough to be shared across humans, agents, tools, and workflow engines.
+
+### 2. Reliability Work Catalog
+
+ORel should maintain a versioned catalog of common reliability work across **CHANGE**, **RUN**, and **LEARN**.
+
+An initial catalog may include:
+
+**CHANGE**
+
+- Production Readiness Review
+- Deployment Risk Assessment
+- Migration Readiness
+- Rollback / Recovery Verification
+- Release Verification
+- Post-deployment Verification
+
+**RUN**
+
+- Incident Response
+- Root Cause Investigation
+- Vulnerability Response
+- Performance Engineering
+- Capacity Engineering
+- Resilience / Chaos Engineering
+- Observability Improvement
+- SLO Review
+- Backup / Restore Verification
+- Disaster Recovery Exercise
+- Dependency Risk Review
+- CI / Delivery Performance
+- Toil Reduction
+
+**LEARN**
+
+- Postmortem
+- Reliability Review
+- Trend Analysis
+- Spec / Architecture Feedback
+
+The catalog is not intended to be exhaustive or to define organizational boundaries. Its purpose is to provide a shared map of recurring reliability work that can be implemented by humans, Agent Skills, automation, or external workflow systems.
+
+### 3. Workflow Profiles
+
+Each catalog entry may define a portable **Workflow Profile**.
+
+A Workflow Profile describes the semantic contract of the work, such as:
+
+- purpose;
+- typical triggers;
+- required context and inputs;
+- expected actions or dependencies between actions;
+- required artifacts and evidence;
+- decision / completion conditions;
+- learning that should be fed back into future work.
+
+A Workflow Profile must not prescribe a particular agent, tool, workflow engine, or vendor.
+
+For example, a performance workflow may standardize:
+
+```text
+baseline
+  ↓
+findings
+  ↓
+hypotheses
+  ↓
+experiments
+  ↓
+evidence
+  ↓
+decision
+  ↓
+learning
+```
+
+while leaving k6, Gatling, a managed service, or an AI agent free to implement those actions.
+
+This distinction is important:
+
+> **OpenReliability standardizes the work, not the worker.**
+
+### 4. Portable interfaces
+
+ORel may define contracts such as:
+
+- ContextProvider
+- Executor / Capability
+- EvidenceProvider
+- Policy
+- Workflow Profile
+
+so implementations can exchange context, actions, and evidence without sharing the same runtime.
+
+### 5. Reference implementation
+
+The `rel` CLI is a reference implementation of the standard, not the standard itself.
+
+### Organization-specific workflows
+
+The common catalog is a baseline, not a replacement for company-specific operating practice.
+
+A core use case is:
+
+```text
+ORel Workflow Profile
+        +
+Organization Context / Policy / Experience
+        ↓
+Organization-specific Workflow
+        ↓
+Agent Skill / Automation / Human Playbook
+```
+
+A context system such as Tacit can provide company-specific metadata, operational history, decisions, dependencies, criticality, and other organizational knowledge. An agent can use that context together with an ORel Workflow Profile to generate or maintain an organization-specific Agent Skill or workflow.
+
+ORel must not depend on Tacit or any commercial context system, but its schemas and profiles should make this derivation natural.
+
+---
+
 ## 1. Standard first, implementation second
 
 OpenReliability defines *what reliability work means* before prescribing *how it must be executed*.
