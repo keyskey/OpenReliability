@@ -27,11 +27,13 @@ The project should standardize **the language and lifecycle of reliability work*
 
 ## What OpenReliability standardizes
 
-OpenReliability (ORel) defines a **common language for Reliability Engineering** at several layers.
+OpenReliability (ORel) defines a **common language for Reliability Engineering** at four layers.
 
 ### 1. Vocabulary
 
-The smallest shared concepts used across reliability work:
+ORel standardizes a small set of shared domain concepts used across reliability work.
+
+The initial vocabulary includes:
 
 - Case
 - Finding
@@ -41,89 +43,36 @@ The smallest shared concepts used across reliability work:
 - Decision
 - Learning
 
-These concepts should remain stable enough to be shared across humans, agents, tools, and workflow engines.
+These names are **provisional until their schemas and semantics are validated by real workflows**. The constitution fixes the need for a small common vocabulary, not every artifact name in advance.
 
-### 2. Reliability Work Catalog
+### 2. Workflow Catalog
 
-ORel should maintain a versioned catalog of common reliability work across **CHANGE**, **RUN**, and **LEARN**.
+ORel maintains a versioned **Workflow Catalog** across **CHANGE**, **RUN**, and **LEARN**.
 
-An initial catalog may include:
+The catalog is a collection of reusable **Workflow Profiles**. A Workflow Profile is the standard representation of one recurring reliability activity, such as Production Readiness Review, Incident Response, or Performance Engineering.
 
-**CHANGE**
+A Workflow Profile describes the semantic contract of the work, including as appropriate:
 
-- Production Readiness Review
-- Deployment Risk Assessment
-- Migration Readiness
-- Rollback / Recovery Verification
-- Release Verification
-- Post-deployment Verification
-
-**RUN**
-
-- Incident Response
-- Root Cause Investigation
-- Vulnerability Response
-- Performance Engineering
-- Capacity Engineering
-- Resilience / Chaos Engineering
-- Observability Improvement
-- SLO Review
-- Backup / Restore Verification
-- Disaster Recovery Exercise
-- Dependency Risk Review
-- CI / Delivery Performance
-- Toil Reduction
-
-**LEARN**
-
-- Postmortem
-- Reliability Review
-- Trend Analysis
-- Spec / Architecture Feedback
-
-The catalog is not intended to be exhaustive or to define organizational boundaries. Its purpose is to provide a shared map of recurring reliability work that can be implemented by humans, Agent Skills, automation, or external workflow systems.
-
-### 3. Workflow Profiles
-
-Each catalog entry may define a portable **Workflow Profile**.
-
-A Workflow Profile describes the semantic contract of the work, such as:
-
+- identity and lifecycle stage;
 - purpose;
 - typical triggers;
 - required context and inputs;
-- expected actions or dependencies between actions;
+- actions and dependencies between actions;
 - required artifacts and evidence;
-- decision / completion conditions;
-- learning that should be fed back into future work.
+- decision or completion conditions;
+- learning that should feed future work.
+
+A profile may begin in a draft state and become more complete as ORel validates the workflow in practice. This lets the catalog also serve as the map of known reliability work without introducing a separate "work list" abstraction.
+
+The catalog itself should evolve independently from this constitution. See `docs/workflow-catalog.md`.
 
 A Workflow Profile must not prescribe a particular agent, tool, workflow engine, or vendor.
-
-For example, a performance workflow may standardize:
-
-```text
-baseline
-  ↓
-findings
-  ↓
-hypotheses
-  ↓
-experiments
-  ↓
-evidence
-  ↓
-decision
-  ↓
-learning
-```
-
-while leaving k6, Gatling, a managed service, or an AI agent free to implement those actions.
 
 This distinction is important:
 
 > **OpenReliability standardizes the work, not the worker.**
 
-### 4. Portable interfaces
+### 3. Portable interfaces
 
 ORel may define contracts such as:
 
@@ -131,17 +80,16 @@ ORel may define contracts such as:
 - Executor / Capability
 - EvidenceProvider
 - Policy
-- Workflow Profile
 
-so implementations can exchange context, actions, and evidence without sharing the same runtime.
+so implementations can exchange context, actions, policy requirements, and evidence without sharing the same runtime.
 
-### 5. Reference implementation
+### 4. Reference implementation
 
 The `rel` CLI is a reference implementation of the standard, not the standard itself.
 
 ### Organization-specific workflows
 
-The common catalog is a baseline, not a replacement for company-specific operating practice.
+The Workflow Catalog is a baseline, not a replacement for company-specific operating practice.
 
 A core use case is:
 
