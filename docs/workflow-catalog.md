@@ -17,6 +17,33 @@ There is intentionally no separate "Work Catalog entry" type.
 
 A profile may begin as `draft` with only a stable identity, purpose, and rough scope. As the workflow is validated, the profile can gain triggers, required context, action dependencies, evidence requirements, and completion semantics.
 
+Machine-interpreted fields must use semantic identifiers from ORel registries or declared extension namespaces. For example, a trigger, context requirement, capability, or evidence type should not be invented as an unqualified local string.
+
+See [`registries.md`](registries.md) for the registry model.
+
+A mature profile may eventually look conceptually like:
+
+```yaml
+id: run/performance
+status: stable
+
+purpose: Improve system performance
+
+triggers:
+  - orel:trigger/performance/latency-regression
+
+requires:
+  - orel:context/service
+  - orel:context/production-baseline
+
+actions:
+  - capability: orel:capability/load-test
+    produces:
+      - orel:evidence/performance-test-result
+```
+
+The exact identifier syntax remains provisional; the important rule is that semantic values are resolvable rather than free-form.
+
 Conceptually:
 
 ```text
