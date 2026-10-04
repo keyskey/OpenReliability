@@ -27,7 +27,7 @@ The project should standardize **the language and lifecycle of reliability work*
 
 ## What OpenReliability standardizes
 
-OpenReliability (ORel) defines a **common language for Reliability Engineering** at four layers.
+OpenReliability (ORel) defines a **common language for Reliability Engineering** at five layers.
 
 ### 1. Vocabulary
 
@@ -45,7 +45,31 @@ The initial vocabulary includes:
 
 These names are **provisional until their schemas and semantics are validated by real workflows**. The constitution fixes the need for a small common vocabulary, not every artifact name in advance.
 
-### 2. Workflow Catalog
+### 2. Semantic Registries
+
+Machine-readable semantic fields must not rely on unconstrained free-form strings.
+
+ORel maintains versioned registries for identifiers that need stable meaning across workflows, implementations, and organizations. Candidate registries include:
+
+- Trigger
+- Context Requirement
+- Capability / Action Type
+- Evidence Type
+- Decision Type
+- other cross-workflow semantic identifiers that prove necessary in practice
+
+Normative Workflow Profile fields that reference these concepts should resolve to either:
+
+1. an identifier in an ORel core registry; or
+2. an identifier in an explicitly declared, globally unique extension namespace.
+
+This gives ORel interoperability without preventing organizations and vendors from defining concepts that do not belong in the global standard.
+
+Human-facing prose such as a workflow purpose, rationale, or description does **not** need to be registry-backed.
+
+The constitution fixes the namespace and resolution rule, not every registry value in advance. Concrete registries should evolve independently from this document. See `docs/registries.md`.
+
+### 3. Workflow Catalog
 
 ORel maintains a versioned **Workflow Catalog** across **CHANGE**, **RUN**, and **LEARN**.
 
@@ -62,6 +86,8 @@ A Workflow Profile describes the semantic contract of the work, including as app
 - decision or completion conditions;
 - learning that should feed future work.
 
+Where these fields carry machine-interpreted semantics, their values should reference ORel registries or declared extension namespaces rather than inventing local strings.
+
 A profile may begin in a draft state and become more complete as ORel validates the workflow in practice. This lets the catalog also serve as the map of known reliability work without introducing a separate "work list" abstraction.
 
 The catalog itself should evolve independently from this constitution. See `docs/workflow-catalog.md`.
@@ -72,7 +98,7 @@ This distinction is important:
 
 > **OpenReliability standardizes the work, not the worker.**
 
-### 3. Portable interfaces
+### 4. Portable interfaces
 
 ORel may define contracts such as:
 
@@ -83,7 +109,7 @@ ORel may define contracts such as:
 
 so implementations can exchange context, actions, policy requirements, and evidence without sharing the same runtime.
 
-### 4. Reference implementation
+### 5. Reference implementation
 
 The `rel` CLI is a reference implementation of the standard, not the standard itself.
 
@@ -157,7 +183,33 @@ If a capability can live in a workflow pack, Agent Skill, adapter, MCP server, o
 
 ---
 
-## 3. Evidence is a first-class artifact
+## 3. Stable identifiers, extensible namespaces
+
+Interoperability requires more than common field names. The values inside normative semantic fields must also have stable meaning.
+
+A Workflow Profile should not invent identifiers such as `latency-regression`, `production-baseline`, or `load-test` without a resolvable definition.
+
+ORel therefore uses registries and namespaces:
+
+```text
+ORel Core Registry
+        +
+Declared Extension Namespaces
+        ↓
+Resolvable Semantic Identifiers
+        ↓
+Workflow Profiles / Policies / Executors
+```
+
+Core identifiers provide shared semantics across implementations. Extension namespaces allow organizations and vendors to add private or domain-specific semantics without polluting the global registry.
+
+The exact identifier syntax may evolve, but the following rule should remain stable:
+
+> **A machine-interpreted semantic value must be globally resolvable, not merely locally understandable.**
+
+---
+
+## 4. Evidence is a first-class artifact
 
 An agent assertion is not evidence.
 
@@ -175,7 +227,7 @@ OpenReliability should optimize for **evidence-backed decisions**, not for gener
 
 ---
 
-## 4. Workflows are portable; executors are replaceable
+## 5. Workflows are portable; executors are replaceable
 
 Reliability workflows should describe required work without binding that work to a specific implementation.
 
@@ -201,7 +253,7 @@ OpenReliability should standardize the contract, not monopolize the worker.
 
 ---
 
-## 5. Policy and agent reasoning are separate concerns
+## 6. Policy and agent reasoning are separate concerns
 
 Deterministic organizational requirements must not be hidden inside prompts.
 
@@ -231,7 +283,7 @@ Evidence = what actually happened
 
 ---
 
-## 6. Actions, not ceremonial phases
+## 7. Actions, not ceremonial phases
 
 Reliability work is rarely a single linear checklist.
 
@@ -254,7 +306,7 @@ Execution may be delegated to Spec Kit, GitHub Actions, Argo, Tekton, Temporal, 
 
 ---
 
-## 7. AI is optional; determinism belongs in the core
+## 8. AI is optional; determinism belongs in the core
 
 OpenReliability is designed for an agentic future, but the standard must remain useful without an LLM.
 
@@ -272,7 +324,7 @@ The project should avoid turning deterministic infrastructure concerns into prom
 
 ---
 
-## 8. Integrate; do not recreate ecosystems
+## 9. Integrate; do not recreate ecosystems
 
 OpenReliability should consume existing standards and tools whenever possible.
 
@@ -292,7 +344,7 @@ The project should only introduce a new abstraction when existing ones cannot ex
 
 ---
 
-## 9. Git-native and inspectable by default
+## 10. Git-native and inspectable by default
 
 A reliability case should be reviewable without a proprietary UI.
 
@@ -313,7 +365,7 @@ with all meaningful state inspectable by humans and agents.
 
 ---
 
-## 10. BUILD, CHANGE, RUN, and LEARN form one loop
+## 11. BUILD, CHANGE, RUN, and LEARN form one loop
 
 OpenReliability does not treat production operations as a lifecycle disconnected from software development.
 
@@ -336,7 +388,7 @@ OpenReliability should integrate with systems such as OpenSpec rather than attem
 
 ---
 
-## 11. Vendor neutrality is a product requirement
+## 12. Vendor neutrality is a product requirement
 
 No core schema should require:
 
@@ -352,7 +404,7 @@ Commercial products may implement superior adapters or context providers, but th
 
 ---
 
-## 12. Reference implementation is not the standard
+## 13. Reference implementation is not the standard
 
 The `rel` CLI is the reference implementation of OpenReliability, not OpenReliability itself.
 
