@@ -31,3 +31,5 @@ OpenReliability is developed under a small set of architectural constraints:
 See [`docs/constitution.md`](docs/constitution.md) for the full design constitution.
 
 The evolving catalog of standardized reliability workflows lives in [`docs/workflow-catalog.md`](docs/workflow-catalog.md). Each catalog entry is a versioned **Workflow Profile**.
+
+Machine-readable semantic values used by profiles are defined through ORel registries and extension namespaces. See [`docs/registries.md`](docs/registries.md).
